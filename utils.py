@@ -1,31 +1,28 @@
 from pymouse import PyMouse
-from pykeyboard import PyKeyboard
 from time import sleep
 
 m = PyMouse()
-k = PyKeyboard()
-
 
 class Utils:
 
-    def __init__(self, difficulty, detail):
+    def __init__(self, difficulty: str, detail: str):
         self.difficulty = difficulty
         self.detail = detail
 
     def start(self):
         sleep(3)
-        m.click(827, 931, 1)
+        m.click(827, 931)
         sleep(2)
 
     def next_pages(self, num: int):
         # 重置为第一页，首先点击中级，再点击新手即可
-        m.click(850, 1000, 1)
+        m.click(850, 1000)
         sleep(1)
-        m.click(550, 1000, 1)
+        m.click(550, 1000)
         sleep(1)
 
         for i in range(num):
-            m.click(1650, 430, 1)
+            m.click(1650, 430)
             sleep(1)
 
     def choose_map(self, position: str):
@@ -38,7 +35,7 @@ class Utils:
             "f": (1500, 500)
         }
         position = MAP_POSITION[position.lower()]
-        m.click(position[0], position[1], 1)
+        m.click(*position)
         sleep(1)
 
     def choose_difficulty(self):
@@ -71,18 +68,22 @@ class Utils:
         }
 
         difficulty_position = DIFFICULTY_POSITION[self.difficulty.lower()]
-        m.click(difficulty_position[0], difficulty_position[1], 1)
+        m.click(*difficulty_position)
         sleep(1)
 
         if self.difficulty.lower() == "easy":
-            m.click(EASY_POSITION[self.detail.lower()][0], EASY_POSITION[self.detail.lower()][1], 1)
+            m.click(*EASY_POSITION[self.detail.lower()])
         elif self.difficulty.lower() == "medium":
-            m.click(MEDIUM_POSITION[self.detail.lower()][0], MEDIUM_POSITION[self.detail.lower()][1], 1)
+            m.click(*MEDIUM_POSITION[self.detail.lower()])
         elif self.difficulty.lower() == "hard":
-            m.click(HARD_POSITION[self.detail.lower()][0], HARD_POSITION[self.detail.lower()][1], 1)
+            m.click(*HARD_POSITION[self.detail.lower()])
         else:
             raise
         sleep(5)
+
+    def choose_hero(self, hero: str):
+        # todo 需要吗？
+        return "hero location"
 
     def select(self, map_id: str):
         # 1. 翻页
@@ -102,5 +103,5 @@ class Utils:
         sleep(1)
 
         # 主页
-        m.click(688, 838,1)
+        m.click(688, 838, 1)
         sleep(4)
