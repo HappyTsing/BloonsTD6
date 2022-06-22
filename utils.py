@@ -81,10 +81,6 @@ class Utils:
             raise
         sleep(5)
 
-    def choose_hero(self, hero: str):
-        # todo 需要吗？
-        return "hero location"
-
     def select(self, map_id: str):
         # 1. 翻页
         page_num = int(map_id[0:len(map_id) - 1])
