@@ -87,9 +87,9 @@ MEDIUM_COMMON = {
         "sniper_monkey": (1048, 487)
     },
     "3f": {
-        "hero": (843, 202),
-        "monkey_ace": (1350, 217),
-        "sniper_monkey": (831, 999)
+        "hero": (838, 945),
+        "monkey_ace": (647, 858),
+        "sniper_monkey": (816, 1005)
     },
     "4a": {
         "hero": (412, 501),
@@ -99,7 +99,7 @@ MEDIUM_COMMON = {
     "4b": {
         "hero": (461, 576),
         "monkey_ace": (832, 918),
-        "sniper_monkey": (472, 558)
+        "sniper_monkey": (637, 544)
     },
 
     "5a": {
@@ -206,12 +206,12 @@ MEDIUM_COMMON = {
         "monkey_ace": (411, 333),
         "sniper_monkey": (1161, 576)
     },
-
-    "8d": {
-        "hero": (837, 218),
-        "monkey_ace": (911, 926),
-        "sniper_monkey": (822, 753)
-    },
+    # 会动
+    # "8d": {
+    #     "hero": (837, 218),
+    #     "monkey_ace": (911, 926),
+    #     "sniper_monkey": (822, 753)
+    # },
     "8e": {
         "hero": (427, 553),
         "monkey_ace": (1324, 538),
@@ -259,12 +259,12 @@ MEDIUM_COMMON = {
         "monkey_ace": (835, 772),
         "sniper_monkey": (822, 311)
     },
-
-    "11a": {
-        "hero": (841, 290),
-        "monkey_ace": (832, 168),
-        "sniper_monkey": (1239, 481)
-    },
+    # 会动
+    # "11a": {
+    #     "hero": (841, 290),
+    #     "monkey_ace": (832, 168),
+    #     "sniper_monkey": (1188, 497)
+    # },
     "11b": {
         "hero": (1327, 311),
         "monkey_ace": (341, 842),
@@ -314,7 +314,10 @@ MEDIUM_COMMON = {
     },
 
 }
+EASY_COMMON = MEDIUM_COMMON
+EASY_PRAMARY = {
 
+}
 
 class Location:
 
@@ -324,15 +327,15 @@ class Location:
 
     def get_monkeys_location(self, map_id: str):
         if self.difficulty.lower() == "easy":
-            if self.detail.lower() in ["standard", "primary_monkeys_only"]:
-                return 0
-            elif self.detail.lower() in ["deflation"]:
-                return 0
+            if self.detail.lower() in ["standard", "deflation"]:
+                return EASY_COMMON[map_id.lower()]
+            elif self.detail.lower() in ["primary_monkeys_only"]:
+                return EASY_PRAMARY[map_id.lower()]
         elif self.difficulty.lower() == "medium":
             if self.detail.lower() in ["standard", "reverse", "military_monkeys_only"]:
                 return MEDIUM_COMMON[map_id.lower()]
             elif self.detail.lower() in ["apopalypse"]:
-                return 0
+                return MEDIUM_COMMON[map_id.lower()]
         elif self.difficulty.lower() == "hard":
             if self.detail.lower() in ["standard", "magic_monkeys_only", "double_hp_moabs", "half_cash",
                                        "alternate_bloons_rounds", "impoppable", "chimps"]:

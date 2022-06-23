@@ -1,11 +1,9 @@
-from pymouse import PyMouse
 from time import sleep
 from utils import Utils
 from location import Location
 from dm.dm import DM
 from monkey import Monkey
 
-m = PyMouse()
 dm = DM()
 
 
@@ -70,6 +68,42 @@ def military_monkeys_only(map_id):
 
 
 # 天启模式
-def apopalypse():
-    # todo 天启模式的脚本代码
-    return False
+def apopalypse(map_id):
+    utils = Utils("medium", "apopalypse")
+    location = Location("medium", "apopalypse")
+    utils.start()
+    utils.select(map_id)
+    monkey_location = location.get_monkeys_location(map_id)
+
+    hero = Monkey(monkey_location["hero"], "u")
+    monkey_ace = Monkey(monkey_location["monkey_ace"], "v")
+    sniper_monkey = Monkey(monkey_location["sniper_monkey"], "z")
+
+    hero.put()
+    dm.keyPress("Space", 1)
+    monkey_ace.put()
+
+    sniper_monkey.put()
+    sniper_monkey.target("strong")
+    sleep(33)
+    monkey_ace.update_to("001")
+    sleep(22)
+    monkey_ace.update_to("002")
+    sleep(36)
+    sniper_monkey.update_to("001")
+    sleep(15)
+    sniper_monkey.update_to("002")
+    sleep(65)
+    monkey_ace.update_to("003")
+    sleep(5)
+    sniper_monkey.update_to("102")
+    sleep(20)
+    monkey_ace.update_to("023")
+    sleep(45)
+    sniper_monkey.update_to("103")
+    sleep(75)
+    sniper_monkey.update_to("104")
+    sleep(25)
+    sniper_monkey.update_to("204")
+    utils.finish()
+

@@ -58,9 +58,9 @@ class Monkey:
         origin_path2 = self.meta["path"][2]
         origin_path3 = self.meta["path"][3]
 
-        self.dm.keyPress(PATH[1], path1 - origin_path1, interva=0.05)
-        self.dm.keyPress(PATH[2], path2 - origin_path2, interva=0.05)
-        self.dm.keyPress(PATH[3], path3 - origin_path3, interva=0.05)
+        self.dm.keyPress(PATH[1], path1 - origin_path1, interva=0.1)
+        self.dm.keyPress(PATH[2], path2 - origin_path2, interva=0.1)
+        self.dm.keyPress(PATH[3], path3 - origin_path3, interva=0.15)
 
         self.meta["path"][1] = path1
         self.meta["path"][2] = path2

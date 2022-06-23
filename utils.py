@@ -3,6 +3,7 @@ from time import sleep
 
 m = PyMouse()
 
+
 class Utils:
 
     def __init__(self, difficulty: str, detail: str):
@@ -80,6 +81,9 @@ class Utils:
         else:
             raise
         sleep(5)
+        if self.detail.lower() == "apopalypse":
+            m.click(950, 750)
+            sleep(1.5)
 
     def select(self, map_id: str):
         # 1. 翻页
