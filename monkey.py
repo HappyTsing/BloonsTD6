@@ -30,7 +30,7 @@ class Monkey:
         self.dm.keyPress(self.monkey)
         self.dm.click(*self.location)
 
-    def update(self, path, n=1):
+    def update(self, path: int, n: int = 1):
         PATH = {
             1: ",",
             2: ".",
@@ -41,6 +41,16 @@ class Monkey:
         self.dm.keyPress(PATH[path], n)
         self.meta["path"][path] += n
 
+        self.dm.keyPress("Esc", 1)
+
+    def update_force(self, path: int, n: int = 1):
+        PATH = {
+            1: ",",
+            2: ".",
+            3: "/",
+        }
+        self.dm.click(*self.location)
+        self.dm.keyPress(PATH[path], n)
         self.dm.keyPress("Esc", 1)
 
     def update_to(self, final: str):
@@ -69,22 +79,32 @@ class Monkey:
         self.dm.keyPress("Esc", 1)
 
     def target(self, target: str):
-        TARGET = {
-            "first": 0,
-            "last": 1,
-            "close": 2,
-            "strong": 3
-        }
-        origin_nums = self.meta["target_nums"] % 4
+        if target == "stealth":
+            self.dm.click(*self.location)
+            self.dm.keyPress("pgdn")
+            self.dm.keyPress("Esc")
 
-        # first -> strong   3 - 0 = 3      因此需要按3下tab
-        # strong -> last    1 - 3 + 4 = 2  因此需要按2下tab
-        n = TARGET[target.lower()] - origin_nums
-        if n < 0:
-            n = n + 4
-        # logging.info("n: " + str(n) + " origin_nums: " + str(origin_nums))
-        self.meta["target_nums"] += n
+        else:
+            TARGET = {
+                "first": 0,
+                "last": 1,
+                "close": 2,
+                "strong": 3,
+            }
+            origin_nums = self.meta["target_nums"] % 4
 
-        self.dm.click(*self.location)
-        self.dm.keyPress("Tab", n)
-        self.dm.keyPress("Esc", 1)
+            # first -> strong   3 - 0 = 3      因此需要按3下tab
+            # strong -> last    1 - 3 + 4 = 2  因此需要按2下tab
+            n = TARGET[target.lower()] - origin_nums
+            if n < 0:
+                n = n + 4
+            # logging.info("n: " + str(n) + " origin_nums: " + str(origin_nums))
+            self.meta["target_nums"] += n
+
+            self.dm.click(*self.location)
+            self.dm.keyPress("Tab", n)
+            self.dm.keyPress("Esc")
+
+    def sale(self):
+        self.dm.click(*self.location, interva=0.02)
+        self.dm.keyPress("back")

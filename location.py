@@ -268,7 +268,7 @@ MEDIUM_COMMON = {
     "11b": {
         "hero": (1327, 311),
         "monkey_ace": (341, 842),
-        "sniper_monkey": (484, 819)
+        "sniper_monkey": (258, 1052)
     },
     "11c": {
         "hero": (740, 506),
@@ -315,6 +315,7 @@ MEDIUM_COMMON = {
 
 }
 EASY_COMMON = MEDIUM_COMMON
+HARD_COMMON = MEDIUM_COMMON
 EASY_PRAMARY = {
 
 }
@@ -338,5 +339,11 @@ class Location:
                 return MEDIUM_COMMON[map_id.lower()]
         elif self.difficulty.lower() == "hard":
             if self.detail.lower() in ["standard", "magic_monkeys_only", "double_hp_moabs", "half_cash",
-                                       "alternate_bloons_rounds", "impoppable", "chimps"]:
-                return 0
+                                        "impoppable", "chimps"]:
+                return HARD_COMMON[map_id.lower()]
+            if self.detail.lower() in ["alternate_bloons_rounds"]:
+                HARD_COMMON["11c"]["hero"] = (246, 785)
+                HARD_COMMON["5e"]["hero"] = (1445, 465)
+                HARD_COMMON["5f"]["hero"] = (767, 338)
+                HARD_COMMON["8c"]["hero"] = (1114, 535)
+                return HARD_COMMON[map_id.lower()]

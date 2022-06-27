@@ -1,7 +1,9 @@
 from pymouse import PyMouse
 from time import sleep
+from dm.dm import DM
 
 m = PyMouse()
+dm = DM()
 
 
 class Utils:
@@ -15,16 +17,29 @@ class Utils:
         m.click(827, 931)
         sleep(2)
 
-    def next_pages(self, num: int):
+    def choose_page(self, page_number: int):
         # 重置为第一页，首先点击中级，再点击新手即可
         m.click(850, 1000)
         sleep(1)
         m.click(550, 1000)
         sleep(1)
 
-        for i in range(num):
-            m.click(1650, 430)
-            sleep(1)
+        if page_number in [1, 2, 3, 4]:
+            for i in range(page_number - 1):
+                m.click(550, 1000)
+                sleep(1)
+        elif page_number in [5, 6, 7]:
+            for i in range(page_number - 4):
+                m.click(850, 1000)
+                sleep(1)
+        elif page_number in [8, 9, 10]:
+            for i in range(page_number - 7):
+                m.click(1100, 1000)
+                sleep(1)
+        elif page_number in [11, 12]:
+            for i in range(page_number - 10):
+                m.click(1350, 1000)
+                sleep(1)
 
     def choose_map(self, position: str):
         MAP_POSITION = {
@@ -87,8 +102,8 @@ class Utils:
 
     def select(self, map_id: str):
         # 1. 翻页
-        page_num = int(map_id[0:len(map_id) - 1])
-        self.next_pages(page_num - 1)
+        page_number = int(map_id[0:len(map_id) - 1])
+        self.choose_page(page_number)
 
         # 2. 选择地图
         map_position = map_id[len(map_id) - 1]
@@ -97,11 +112,36 @@ class Utils:
         # 3. 选择难度
         self.choose_difficulty()
 
-    def finish(self):
-        # 下一页
-        m.click(970, 904, 1)
+    def finish(self, type="common"):
+        if type == "common":
+            # 下一页
+            m.click(970, 904, 1)
+            sleep(1)
+
+            # 主页
+            m.click(688, 838, 1)
+            sleep(4)
+        elif type == "esc":
+            dm.keyPress("Esc")
+            sleep(1)
+            # 重新开始
+            m.click(1050, 850, 1)
+            # 确定重新开始
+            m.click(1100, 710, 1)
+            dm.keyPress("Esc")
+            # 主页
+            m.click(850, 850, 1)
+            sleep(4)
+
+    def go_on(self):
+        m.click(950, 900, 1)
+        sleep(1)
+        m.click(1200, 850, 1)
+        sleep(1)
+        m.click(1200, 850, 1)
+        sleep(1)
+        dm.keyPress("Space")
         sleep(1)
 
-        # 主页
-        m.click(688, 838, 1)
-        sleep(4)
+    def skill(self, n: int):
+        dm.keyPress(str(n), n=1, interva=0)
